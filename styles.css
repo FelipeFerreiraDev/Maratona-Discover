@@ -1,10 +1,22 @@
 /* Global/Reset =========================*/
 
 :root {
-    --dark-blue: #363F5F;
-    --green: #49AA26;
-    --light-green: #3DD705;
-    --red: #E92929;
+    --bg: #f0f2f5;
+    --header: #2D4a22;
+    --text: #363F5F;
+    --text-table: #363F5F;
+    --total: #49AA26;
+    --transaction-color: ;
+    --button: #3DD705;
+    --button-cancel: #E92929;
+    --data-table: #969cb3;
+    --table-color: #FFF;
+    --income: #12a454;
+    --card: #FFF;
+    --text-button: #2D4a22;
+    --modal: #F0F2F5;
+    --small: #302f2f;
+    --button-bg: #2D4a22;
 }
 
 * {
@@ -18,16 +30,16 @@ html {
     font-size: 93.75%;
 }
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
     width: 10px;
 }
 
-body::-webkit-scrollbar-thumb{
-    background-color: #2D4A22;
+body::-webkit-scrollbar-thumb {
+    background-color: var(--header);
 }
 
 body {
-    background: #f0f2f5;
+    background: var(--bg);
     font-family: 'Poppins', sans-serif;
 }
 
@@ -53,22 +65,23 @@ body {
 h2 {
     margin-top: 3.2rem;
     margin-bottom: 0.8rem;
-    color: var(--dark-blue);
+    color: var(--text);
     font-weight: normal;
 }
 
 /* Links & Buttons ==============================*/
 
 a {
-    color: var(--green);
+    color: var(--header);
     text-decoration: none;
 }
 
 a:hover {
-    color: var(--light-green);
+    color: var(--button);
 }
 
 .button.new {
+    color: var(--text-button);
     display: inline-block;
     margin-bottom: .8rem;
 }
@@ -78,19 +91,19 @@ button {
     height: 50px;
     border: none;
     color: white;
-    background: var(--green);
+    background: var(--button-bg);
     padding: 0;
     border-radius: 0.25rem;
     cursor: pointer;
 }
 
 button:hover {
-    background: var(--light-green);
+    background: var(--button);
 }
 
 .button.cancel {
-    color: var(--red);
-    border: 2px var(--red) solid;
+    color: var(--button-cancel);
+    border: 2px var(--button-cancel) solid;
     border-radius: 0.25rem;
     height: 50px;
     display: flex;
@@ -106,7 +119,7 @@ button:hover {
 /* Header ==============================*/
 
 header {
-    background: #2D4A22;
+    background: var(--header);
     padding: 2rem 0 10rem;
     text-align: center;
     display: flex;
@@ -120,6 +133,49 @@ header img {
 
 /* Input DarkMode ========================*/
 
+input[type=checkbox] {
+    margin: 12px;
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 52px;
+    height: 27px;
+    background: grey;
+    float: right;
+    border-radius: 100px;
+    position: relative;
+}
+
+label::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 90px;
+    transition: 0.3s;
+}
+
+input:checked+label {
+    background-color: var(--button);
+}
+
+input:checked+label::after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+
+label:active:after {
+    width: 45px;
+}
+
 /* Balance ==============================*/
 
 #balance {
@@ -127,18 +183,18 @@ header img {
 }
 
 #balance h2 {
-    color: white;
+    color: red;
     margin-top: 0;
 }
 
 /* Cards ==============================*/
 
 .card {
-    background: white;
+    background: var(--card);
     padding: 1.5rem 2rem;
     border-radius: 0.25rem;
     margin-bottom: 2rem;
-    color: var(--dark-blue);
+    color: var(--text);
 }
 
 .card h3 {
@@ -156,7 +212,7 @@ header img {
 }
 
 .card.total {
-    background: var(--green);
+    background: var(--total);
     color: white;
 }
 
@@ -171,11 +227,11 @@ header img {
 #data-table {
     width: 100%;
     border-spacing: 0 0.5rem;
-    color: #969cb3;
+    color: var(--text-table);
 }
 
 table th {
-    background: white;
+    background: var(--table-color);
     font-weight: normal;
     padding: 1rem 2rem;
     text-align: left;
@@ -204,15 +260,15 @@ table thead tr th:last-child, table tbody tr td:last-child {
 }
 
 td.description {
-    color: var(--dark-blue);
+    color: var(--text-table);
 }
 
 td.income {
-    color: #12a454;
+    color: var(--income);
 }
 
 td.expense {
-    color: var(--red);
+    color: var(--button-cancel);
 }
 
 /* Modal ==============================*/
@@ -237,7 +293,7 @@ td.expense {
 }
 
 .modal {
-    background: #F0F2F5;
+    background: var(--modal);
     padding: 2.4rem;
     width: 90%;
     max-width: 500px;
@@ -267,6 +323,7 @@ input {
 }
 
 .input-group small {
+    color: var(--small);
     opacity: 0.4;
 }
 
@@ -276,8 +333,7 @@ input {
     align-items: center;
 }
 
-.input-group.actions .button,
-.input-group.actions button {
+.input-group.actions .button, .input-group.actions button {
     width: 48%;
 }
 
@@ -286,7 +342,7 @@ input {
 footer {
     text-align: center;
     padding: 4rem 0 2rem;
-    color: var(--dark-blue);
+    color: var(--text);
     opacity: 0.6;
 }
 
