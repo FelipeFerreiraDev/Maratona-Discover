@@ -316,7 +316,7 @@ const Form = {
             Form.clearFields()
             Modal.close()
         } catch (error) {
-            alert(error.message)
+            swal('🚀Ops ainda não ',error.message,'error')
         }
     }
 }
