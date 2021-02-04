@@ -285,7 +285,7 @@ table tbody tr:hover {
 }
 
 table tbody td {
-    background: white;
+    background: var(--table-color);
     padding: 1rem 2rem;
     font-weight: normal;
 }

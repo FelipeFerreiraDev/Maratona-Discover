@@ -1,3 +1,123 @@
+/* Préload ============*/
+var overlay = document.getElementById("overlay");
+
+setTimeout(esconde, 3000)
+function esconde () {
+    overlay.style.visibility = 'hidden';
+
+    /*    window.addEventListener('load', function () {
+        overlay.style.visibility = 'hidden';
+    });
+*/
+}
+
+
+/* DarkMode ====================*/
+/*DarkMode ===============
+const $html = document.querySelector('html')
+const $checkbox = document.querySelector('#switch')
+
+$checkbox.addEventListener('change', function() {
+    $html.classList.toogle('.dark-mode')
+})*/
+
+
+
+const html = document.querySelector("html")
+const checkbox = document.querySelector("input[name=theme]")
+
+const getStyle = (element, style) =>
+    window
+        .getComputedStyle(element)
+        .getPropertyValue(style)
+
+
+const initialColors = {
+    bg: getStyle(html, "--bg"),
+    header: getStyle(html, "--header"),
+    text: getStyle(html, "--text"),
+    textTable: getStyle(html, "--text-table"),
+    total: getStyle(html, "--total"),
+    transactionColor: getStyle(html, "--transaction-color"),
+    button: getStyle(html, "--button"),
+    textButton: getStyle(html, "--text-button"),
+    buttonCancel: getStyle(html, "--button-cancel"),
+    dataTable: getStyle(html, "--data-table"),
+    tableColor: getStyle(html, "--table-color"),
+    card: getStyle(html, "--card"),
+    modal: getStyle(html, "--modal"),
+    small: getStyle(html, "--small"),
+    buttonBg: getStyle(html, "--button-bg"),
+}
+
+const darkMode = {
+    bg: "#1C1C1C",
+    header: "#000",
+    textTable: "#FFF",
+    text: "rgb(245, 245, 245)",
+    textButton: "rgb(245, 245, 245)",
+    total: "#363F5F",
+    button: "#3DD705",
+    buttonCancel: "#E92929",
+    dataTable: "white",
+    tableColor: "#363f5f",
+    card: "rgb(37, 35, 35)",
+    modal: "#000",
+    small: "rgb(245,245,245)",
+    buttonBg: "#49AA26"
+}
+
+const transformKey = key =>
+    "--" + key.replace(/([A-Z])/, "-$1").toLowerCase()
+
+
+const changeColors = (colors) => {
+    Object.keys(colors).map(key =>
+        html.style.setProperty(transformKey(key), colors[key])
+    )
+}
+
+
+checkbox.addEventListener("change", ({ target }) => {
+    target.checked ? changeColors(darkMode) : changeColors(initialColors)
+})
+
+
+const isExistLocalStorage = (key) =>
+    localStorage.getItem(key) != null
+
+const createOrEditLocalStorage = (key, value) =>
+    localStorage.setItem(key, JSON.stringify(value))
+
+const getValeuLocalStorage = (key) =>
+    JSON.parse(localStorage.getItem(key))
+
+checkbox.addEventListener("change", ({ target }) => {
+    if (target.checked) {
+        changeColors(darkMode)
+        createOrEditLocalStorage('modo', 'darkMode')
+    } else {
+        changeColors(initialColors)
+        createOrEditLocalStorage('modo', 'initialColors')
+    }
+})
+
+if (!isExistLocalStorage('modo'))
+    createOrEditLocalStorage('modo', 'initialColors')
+
+
+if (getValeuLocalStorage('modo') === "initialColors") {
+    checkbox.removeAttribute('checked')
+    changeColors(initialColors);
+} else {
+    checkbox.setAttribute('checked', "")
+    changeColors(darkMode);
+}
+
+/* APP ==========================*/
+
+
+
 const Modal = {
     open() {
         // Abrir modal
@@ -17,6 +137,7 @@ const Modal = {
             .remove('active')
     }
 }
+
 
 const Storage = {
     get() {
@@ -77,12 +198,14 @@ const DOM = {
         tr.dataset.index = index
 
         DOM.transactionsContainer.appendChild(tr)
+
     },
 
     innerHTMLTransaction(transaction, index) {
         const CSSclass = transaction.amount > 0 ? "income" : "expense"
 
         const amount = Utils.formatCurrency(transaction.amount)
+
 
         const html = `
         <td class="description">${transaction.description}</td>
@@ -92,7 +215,6 @@ const DOM = {
             <img onclick="Transaction.remove(${index})" src="./assets/minus.svg" alt="Remover transação">
         </td>
         `
-
         return html
     },
 
@@ -213,118 +335,4 @@ const App = {
     },
 }
 
-/*DarkMode ===============
-const $html = document.querySelector('html')
-const $checkbox = document.querySelector('#switch')
-
-$checkbox.addEventListener('change', function() {
-    $html.classList.toogle('.dark-mode')
-})*/
-
-
-
-const html = document.querySelector("html")
-const checkbox = document.querySelector("input[name=theme]")
-
-const getStyle = (element, style) =>
-    window
-        .getComputedStyle(element)
-        .getPropertyValue(style)
-
-
-const initialColors = {
-    bg: getStyle(html, "--bg"),
-    header: getStyle(html, "--header"),
-    text: getStyle(html, "--text"),
-    textTable: getStyle(html, "--text-table"),
-    total: getStyle(html, "--total"),
-    transactionColor: getStyle(html, "--transaction-color"),
-    button: getStyle(html, "--button"),
-    textButton: getStyle(html, "--text-button"),
-    buttonCancel: getStyle(html, "--button-cancel"),
-    dataTable: getStyle(html, "--data-table"),
-    tableColor: getStyle(html, "--table-color"),
-    card: getStyle(html, "--card"),
-    modal: getStyle(html, "--modal"),
-    small: getStyle(html, "--small"),
-    buttonBg: getStyle(html, "--button-bg"),
-}
-
-const darkMode = {
-    bg: "#1C1C1C",
-    header: "#000",
-    textTable: "#000",
-    text: "rgb(245, 245, 245)",
-    textButton: "rgb(245, 245, 245)",
-    total: "#363F5F",
-    button: "#3DD705",
-    buttonCancel: "#E92929",
-    dataTable: "white",
-    tableColor: "#363f5f",
-    card: "rgb(37, 35, 35)",
-    modal: "#000",
-    small: "rgb(245,245,245)",
-    buttonBg: "#49AA26"
-}
-
-const transformKey = key =>
-    "--" + key.replace(/([A-Z])/, "-$1").toLowerCase()
-
-
-const changeColors = (colors) => {
-    Object.keys(colors).map(key =>
-        html.style.setProperty(transformKey(key), colors[key])
-    )
-}
-
-
-checkbox.addEventListener("change", ({ target }) => {
-    target.checked ? changeColors(darkMode) : changeColors(initialColors)
-})
-
-
-const isExistLocalStorage = (key) =>
-    localStorage.getItem(key) != null
-
-const createOrEditLocalStorage = (key, value) =>
-    localStorage.setItem(key, JSON.stringify(value))
-
-const getValeuLocalStorage = (key) =>
-    JSON.parse(localStorage.getItem(key))
-
-checkbox.addEventListener("change", ({ target }) => {
-    if (target.checked) {
-        changeColors(darkMode)
-        createOrEditLocalStorage('modo', 'darkMode')
-    } else {
-        changeColors(initialColors)
-        createOrEditLocalStorage('modo', 'initialColors')
-    }
-})
-
-if (!isExistLocalStorage('modo'))
-    createOrEditLocalStorage('modo', 'initialColors')
-
-
-if (getValeuLocalStorage('modo') === "initialColors") {
-    checkbox.removeAttribute('checked')
-    changeColors(initialColors);
-} else {
-    checkbox.setAttribute('checked', "")
-    changeColors(darkMode);
-}
-
-var overlay = document.getElementById("overlay");
-
-time = setTimeout(esconde, 3000)
-function esconde () {
-    overlay.style.visibility = 'hidden';
-    
-    /*    window.addEventListener('load', function () {
-        overlay.style.visibility = 'hidden';
-    });
-*/
-}
-
-
-App.init()
+setTimeout(App.init, 3000)
