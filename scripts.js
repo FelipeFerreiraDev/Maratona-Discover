@@ -314,5 +314,11 @@ if (getValeuLocalStorage('modo') === "initialColors") {
   changeColors(darkMode);
 }
 
+var overlay = document.getElementById("overlay");
+
+window.addEventListener('load', function(){
+  overlay.style.display = 'none';
+})
+
 
 App.init()
