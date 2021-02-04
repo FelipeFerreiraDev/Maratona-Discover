@@ -4,23 +4,8 @@ var overlay = document.getElementById("overlay");
 setTimeout(esconde, 3000)
 function esconde () {
     overlay.style.visibility = 'hidden';
-
-    /*    window.addEventListener('load', function () {
-        overlay.style.visibility = 'hidden';
-    });
-*/
+    
 }
-
-
-/* DarkMode ====================*/
-/*DarkMode ===============
-const $html = document.querySelector('html')
-const $checkbox = document.querySelector('#switch')
-
-$checkbox.addEventListener('change', function() {
-    $html.classList.toogle('.dark-mode')
-})*/
-
 
 
 const html = document.querySelector("html")
