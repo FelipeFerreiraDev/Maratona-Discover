@@ -67,8 +67,8 @@ body {
     width: 80px;
     height: 80px;
     
-    border: 2px solid #f3f3f3;
-    border-top:3px solid #f25a41;
+    border: 2px solid var(--small);
+    border-top:3px solid var(--button);
     border-radius: 100%;
     
     position: absolute;
@@ -92,7 +92,7 @@ body {
 #overlay{
   height:100%;
   width:100%;
-  background:rgba(0, 0, 0, 1);
+  background:var(--bg);
   position:fixed;
   left:0;
   top:0;

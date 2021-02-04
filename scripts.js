@@ -283,42 +283,48 @@ checkbox.addEventListener("change", ({ target }) => {
 })
 
 
-const isExistLocalStorage = (key) => 
-  localStorage.getItem(key) != null
+const isExistLocalStorage = (key) =>
+    localStorage.getItem(key) != null
 
-const createOrEditLocalStorage = (key, value) => 
-  localStorage.setItem(key, JSON.stringify(value))
+const createOrEditLocalStorage = (key, value) =>
+    localStorage.setItem(key, JSON.stringify(value))
 
 const getValeuLocalStorage = (key) =>
-  JSON.parse(localStorage.getItem(key))
+    JSON.parse(localStorage.getItem(key))
 
-checkbox.addEventListener("change", ({target}) => {
-  if (target.checked) {
-    changeColors(darkMode) 
-    createOrEditLocalStorage('modo','darkMode')
-  } else {
-    changeColors(initialColors)
-    createOrEditLocalStorage('modo','initialColors')
-  }
+checkbox.addEventListener("change", ({ target }) => {
+    if (target.checked) {
+        changeColors(darkMode)
+        createOrEditLocalStorage('modo', 'darkMode')
+    } else {
+        changeColors(initialColors)
+        createOrEditLocalStorage('modo', 'initialColors')
+    }
 })
 
-if(!isExistLocalStorage('modo'))
-  createOrEditLocalStorage('modo', 'initialColors')
+if (!isExistLocalStorage('modo'))
+    createOrEditLocalStorage('modo', 'initialColors')
 
 
 if (getValeuLocalStorage('modo') === "initialColors") {
-  checkbox.removeAttribute('checked')
-  changeColors(initialColors);
+    checkbox.removeAttribute('checked')
+    changeColors(initialColors);
 } else {
-  checkbox.setAttribute('checked', "")
-  changeColors(darkMode);
+    checkbox.setAttribute('checked', "")
+    changeColors(darkMode);
 }
 
 var overlay = document.getElementById("overlay");
 
-window.addEventListener('load', function(){
-  overlay.style.display = 'none';
-})
+time = setTimeout(esconde, 3000)
+function esconde () {
+    overlay.style.visibility = 'hidden';
+    
+    /*    window.addEventListener('load', function () {
+        overlay.style.visibility = 'hidden';
+    });
+*/
+}
 
 
 App.init()
