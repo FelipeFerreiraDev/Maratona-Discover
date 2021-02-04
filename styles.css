@@ -385,7 +385,9 @@ input {
 footer {
     text-align: center;
     padding: 4rem 0 2rem;
+    font-size: 1.5rem;
     color: var(--text);
+    font-weight: bold;
     opacity: 0.6;
 }
 
