@@ -320,4 +320,4 @@ const App = {
     },
 }
 
-setTimeout(App.init, 3000)
+setTimeout(App.init, 3000);
